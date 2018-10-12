@@ -14,6 +14,8 @@ public enum PlayerInfoType
     Gold,
     Energy,
     Toughen,
+    HP,
+    Attack,
     All
 }
 
@@ -41,6 +43,16 @@ public class PlayerInfo : MonoBehaviour {
     private int mGold;
     private int mEnergy;
     private int mToughen;
+    private int mAttack;
+    private int mHP;
+    private InventoryItem mHelmet;
+    private InventoryItem mCloth;
+    private InventoryItem mWeapon;
+    private InventoryItem mShoes;
+    private InventoryItem mNecklace;
+    private InventoryItem mBracelet;
+    private InventoryItem mRing;
+    private InventoryItem mWing;
     #endregion
 
     #region Property
@@ -143,10 +155,119 @@ public class PlayerInfo : MonoBehaviour {
             mToughen = value;
         }
     }
+    public int Attack
+    {
+        get
+        {
+            return mAttack;
+        }
+        set
+        {
+            mAttack = value;
+        }
+    }
+    public int HP
+    {
+        get
+        {
+            return mHP;
+        }
+        set
+        {
+            mHP = value;
+        }
+    }
+    public InventoryItem Helmet
+    {
+        get
+        {
+            return mHelmet;
+        }
+        set
+        {
+            mHelmet = value;
+        }
+    }
+    public InventoryItem Cloth
+    {
+        get
+        {
+            return mCloth;
+        }
+        set
+        {
+            mCloth = value;
+        }
+    }
+    public InventoryItem Weapon
+    {
+        get
+        {
+            return mWeapon;
+        }
+        set
+        {
+            mWeapon = value;
+        }
+    }
+    public InventoryItem Shoes
+    {
+        get
+        {
+            return mShoes;
+        }
+        set
+        {
+            mShoes = value;
+        }
+    }
+    public InventoryItem Necklace
+    {
+        get
+        {
+            return mNecklace;
+        }
+        set
+        {
+            mNecklace = value;
+        }
+    }
+    public InventoryItem Bracelet
+    {
+        get
+        {
+            return mBracelet;
+        }
+        set
+        {
+            mBracelet = value;
+        }
+    }
+    public InventoryItem Ring
+    {
+        get
+        {
+            return mRing;
+        }
+        set
+        {
+            mRing = value;
+        }
+    }
+    public InventoryItem Wing
+    {
+        get
+        {
+            return mWing;
+        }
+        set
+        {
+            mWing = value;
+        }
+    }
     #endregion
 
-    private float energyTimer = 0f;
-    private float toughenTimer = 0f;
+
     public event Action<PlayerInfoType> OnPlayerInfoChanged;
 
     private void Awake()
@@ -156,52 +277,104 @@ public class PlayerInfo : MonoBehaviour {
 
     private void Start()
     {       
-        Init();
-        OnPlayerInfoChanged(PlayerInfoType.All);
-    }
-    private void Update()
-    {
-        if (mEnergy < 100)
-        {
-            energyTimer += Time.deltaTime;
-            if (energyTimer >= 60f)
-            {
-                mEnergy += 1;
-                OnPlayerInfoChanged(PlayerInfoType.Energy);
-                energyTimer -= 60f;
-            }
-        }
-        else
-        {
-            energyTimer = 0f;
-        }
+        Init();       
+    }   
 
-        if (mToughen < 50)
-        {
-            toughenTimer += Time.deltaTime;
-            if (toughenTimer >= 60f)
-            {
-                mToughen += 1;
-                OnPlayerInfoChanged(PlayerInfoType.Toughen);
-                toughenTimer -= 60f;
-            }
-        }
-        else
-        {
-            toughenTimer = 0f;
-        }
-    }
 
     private void Init()
     {
-        this.mName = "骑猪的圣骑士";
-        this.mHeadPortraitID = 0;
-        this.mLevel = 12;
-        this.mPower = 1050;
-        this.mExp = 123;
-        this.mDiamond = 10000;
-        this.mGold = 10000;
-        this.mEnergy = 78;
-        this.mToughen = 29;        
+        mName = "骑猪的圣骑士";
+        mHeadPortraitID = 0;
+        mLevel = 12;
+        mPower = 1050;
+        mExp = 123;
+        mDiamond = 10000;
+        mGold = 10000;
+        mEnergy = 78;
+        mToughen = 29;
+
+        //mHelmet = 1005;
+        //mCloth = 1004;
+        //mWeapon = 1006;
+        //mShoes = 1008;
+        //mNecklace = 1007;
+        //mBracelet = 1001;
+        //mRing = 1003;
+        //mWing = 1002;
+        mHelmet = new InventoryItem();
+        mHelmet.GetInventroy = InventoryManager.Instance.inventoryDict[1005];
+
+        mCloth = new InventoryItem();
+        mCloth.GetInventroy = InventoryManager.Instance.inventoryDict[1004];
+
+        mWeapon = new InventoryItem();
+        mWeapon.GetInventroy = InventoryManager.Instance.inventoryDict[1006];
+
+        mShoes = new InventoryItem();
+        mShoes.GetInventroy = InventoryManager.Instance.inventoryDict[1008];
+
+        mNecklace = new InventoryItem();
+        mNecklace.GetInventroy = InventoryManager.Instance.inventoryDict[1007];
+
+        mBracelet = new InventoryItem();
+        mBracelet.GetInventroy = InventoryManager.Instance.inventoryDict[1001];
+
+        mRing = new InventoryItem();
+        mRing.GetInventroy = InventoryManager.Instance.inventoryDict[1003];
+
+        mWing = new InventoryItem();
+        mWing.GetInventroy = InventoryManager.Instance.inventoryDict[1002];
+
+
+        OnPlayerInfoChanged(PlayerInfoType.All);
+    }
+
+    public void ChangeName(string newName)
+    {
+        mName = newName;
+        OnPlayerInfoChanged(PlayerInfoType.Name);
+    }
+
+    void PutOnEquip(InventoryItem item)
+    {       
+        if (item == null)
+        {
+            return;
+        }
+
+        Inventory inventory = item.GetInventroy;
+        
+        mHP += inventory.HP;
+        mAttack += inventory.Attack;
+        mPower += inventory.Power;
+    }
+
+    void PutOffEquip(InventoryItem item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+        Inventory inventory = item.GetInventroy;
+      
+        this.mHP -= inventory.HP;
+        this.mAttack -= inventory.Attack;
+        this.mPower -= inventory.Power;
+    }
+
+    void InitHPDamagePower()
+    {
+        mHP = mLevel * 100;
+        mAttack = mLevel * 50;
+        mPower = mHP + mAttack;
+
+        PutOnEquip(mHelmet);
+        PutOnEquip(mCloth);
+        PutOnEquip(mWeapon);
+        PutOnEquip(mShoes);
+        PutOnEquip(mNecklace);
+        PutOnEquip(mBracelet);
+        PutOnEquip(mRing);
+        PutOnEquip(mWing);
     }
 }

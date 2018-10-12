@@ -79,12 +79,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Game\Scripts\GameController.cs" />
-    <Compile Include="Assets\Game\Scripts\MainMenu\MenuBar.cs" />
-    <Compile Include="Assets\Game\Scripts\MainMenu\PlayerBar.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\GameController.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\EquiptInfo.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryItem.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryItemUI.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryManager.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryUI.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\ItemInfo.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\Knapsack.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\KnapsackRole.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\KnapsackRoleEquipt.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\MenuBar.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\PlayerBar.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\TopBar.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\PlayerInfo.cs" />
-    <Compile Include="Assets\Game\Scripts\MainMenu\PlayerStatusPanel.cs" />
-    <Compile Include="Assets\Game\Scripts\MainMenu\TopBar.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\PlayerStatus\PlayerStatusPanel.cs" />
     <Compile Include="Assets\Game\Scripts\Start\CharacterRotate.cs" />
     <Compile Include="Assets\Game\Scripts\Start\InitServerList.cs" />
     <Compile Include="Assets\Game\Scripts\Start\ResetSelectedServer.cs" />
@@ -93,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Enemy\Masked Orc\Read Me.txt" />
+    <None Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryListInfo.txt" />
     <None Include="Assets\Game\Textures\UI\005-number combo\number_font.fnt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
