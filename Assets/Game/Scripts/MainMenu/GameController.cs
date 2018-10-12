@@ -8,4 +8,6 @@ public class GameController : MonoBehaviour {
     {
         return (100 + 5 * (level - 2)) * (level - 1);
     }
+
+    
 }

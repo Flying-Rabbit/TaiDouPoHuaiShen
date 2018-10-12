@@ -14,6 +14,7 @@ public class PlayerBar : MonoBehaviour {
     public Slider toughenSlider;
     public Text energyTxt;
     public Text toughenTxt;
+    public GameObject playerStatusPanel;
 
     [SerializeField]
     private Sprite[] headImgs;
@@ -26,6 +27,12 @@ public class PlayerBar : MonoBehaviour {
     private void OnDestroy()
     {
         PlayerInfo.Instance.OnPlayerInfoChanged -= this.OnPlayerInfoChanged;
+    }
+
+    private void Start()
+    {
+        playerStatusPanel.gameObject.SetActive(false);
+        headImg.transform.GetComponent<Button>().onClick.AddListener(() => playerStatusPanel.gameObject.SetActive(true));
     }
 
     private void OnPlayerInfoChanged(PlayerInfoType type)
