@@ -480,13 +480,17 @@ public class PlayerInfo : MonoBehaviour {
 
             if (isSwitchEquipt)
             {
-                InventoryUI.Instance.itUIList[itemId].SetInventoryItem(item);
+                InventoryUI.Instance.itUIList[itemId].SetInventoryItem(item);               
+                item.IsDressed = false;
+                item.Count = 1;
             }
             else
             {
                 InventoryUI.Instance.itUIList[itemId].Clear();
+                InventoryUI.Instance.itUIList[itemId].Clear();
+                KnapsackManager.inventoryItemList.Remove(item);
                 InventoryUI.Instance.UpdateCount();
-                KnapsackManager.inventoryItemList.Remove(item);                
+                          
             }
 
             //print(InventoryManager.Instance.inventoryItemList.Count);
@@ -508,6 +512,7 @@ public class PlayerInfo : MonoBehaviour {
             return;
         }
         item.IsDressed = false;
+        item.Count = 1;
         KnapsackManager.inventoryItemList.Add(item);
         InventoryUI.Instance.UpdateCount();
 

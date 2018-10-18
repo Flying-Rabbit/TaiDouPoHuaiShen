@@ -69,6 +69,6 @@ public class KnapsackRoleEquipt : MonoBehaviour {
         item = null;
         Img.overrideSprite = Resources.Load<Sprite>("ItemIcon/bg_Equipt");
         isEquiped = false;
-        print("clear  000 " + name);
+        //print("clear  000 " + name);
     }
 }
