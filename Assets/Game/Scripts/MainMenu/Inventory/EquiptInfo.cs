@@ -9,33 +9,91 @@ public class EquiptInfo : MonoBehaviour {
     public Button equipBtn;
     public Button upgradeBtn;
 
+    public Text equipTxt;
     public Image equiptIcon;
     public Text equiptName;
     public Text quality;
     public Text attack;
     public Text HP;
+    public Text equiptLevel;
     public Text power;
     public Text desc;
+    public Prompt prompt;
 
-    public void UpdateShow(InventoryItem item)
+    private InventoryItem item;
+    private bool selfIsOnLeft;
+    private int itemId;
+
+    public void UpdateShow(InventoryItem item, bool isRight, int itemId)
     {
-        if (item.GetInventroy.InventoryTYPE != InventoryType.Equip)
+        selfIsOnLeft = isRight;
+        this.item = item;
+        this.itemId = itemId;
+
+        if (selfIsOnLeft)
         {
-            Debug.LogWarning("this is not an equipt");
-            return;
+            equipTxt.text = "装备";
         }
+        else
+        {
+            equipTxt.text = "卸下";
+        }        
 
         equiptIcon.overrideSprite = Resources.Load<Sprite>(item.GetInventroy.Icon);
         equiptName.text = item.GetInventroy.Name;
         quality.text = item.GetInventroy.Quality.ToString();
         attack.text = item.GetInventroy.Attack.ToString();
         HP.text = item.GetInventroy.HP.ToString();
+        equiptLevel.text = item.Level.ToString();
         power.text = item.GetInventroy.Power.ToString();
         desc.text = item.GetInventroy.Des;        
     }
 
     private void Awake()
     {
-        closeBtn.onClick.AddListener(() => gameObject.SetActive(false));
+        closeBtn.onClick.AddListener(Close);
+        equipBtn.onClick.AddListener(EquitOrUnequip);
+        upgradeBtn.onClick.AddListener(Upgrade);
     }
+
+    private void EquitOrUnequip()
+    {
+        if (item == null)
+            return;
+
+        if (selfIsOnLeft)
+        {
+            //装备          
+            PlayerInfo.Instance.PutOnEquip(item, itemId);
+        }
+        else
+        {
+            //卸下
+            PlayerInfo.Instance.PutOffEquip(item);
+        }
+        Close();
+    }
+
+    private void Upgrade()
+    {
+        if (PlayerInfo.Instance.UpgradeEquipt(item))
+        {
+            attack.text = item.GetInventroy.Attack.ToString();
+            HP.text = item.GetInventroy.HP.ToString();
+            equiptLevel.text = item.Level.ToString();
+            power.text = item.GetInventroy.Power.ToString();
+        }
+        else
+        {
+            prompt.gameObject.SetActive(true);
+            prompt.Fade();
+        }
+    }
+
+    private void Close()
+    {
+        item = null;
+        gameObject.SetActive(false);
+    }
+    
 }

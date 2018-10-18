@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour {
+public class KnapsackManager : MonoBehaviour {
 
-    public static InventoryManager Instance;
+    public static KnapsackManager Instance;
     public TextAsset listInfo;
-    public Dictionary<int, Inventory> inventoryDict = new Dictionary<int, Inventory>();    
-    public List<InventoryItem> inventoryItemList = new List<InventoryItem>();
+    public GameObject knapsackGo;
+    public static Dictionary<int, Inventory> inventoryDict = new Dictionary<int, Inventory>();    
+    public static List<InventoryItem> inventoryItemList = new List<InventoryItem>();
     public Action OnInventoryChanged;
-
+    private bool hasReadItems = false;
     private void ReadInventoryInfo()
     {
         //ID 名称 图标 类型（Equip，Drug） 装备类型(Helm,Cloth,Weapon,Shoes,Necklace,Bracelet,Ring,Wing) 
@@ -105,6 +106,7 @@ public class InventoryManager : MonoBehaviour {
                 ii.GetInventroy = inventory;
                 ii.Level = UnityEngine.Random.Range(1, 10);
                 ii.Count = 1;
+                ii.IsDressed = false;
                 inventoryItemList.Add(ii);
             }
             else
@@ -133,9 +135,7 @@ public class InventoryManager : MonoBehaviour {
                     ii.Count = 1;
                     inventoryItemList.Add(ii);
                 }
-            }
-           
-           
+            } 
         }
 
         OnInventoryChanged();
@@ -147,8 +147,13 @@ public class InventoryManager : MonoBehaviour {
         ReadInventoryInfo();
     }
 
-    private void Start()
-    {      
-        ReadInventoryItemInfo();
+    public void OpenBag()
+    {
+        knapsackGo.SetActive(true);
+        if (hasReadItems == false)
+        {
+            hasReadItems = true;
+            ReadInventoryItemInfo();
+        }
     }
 }

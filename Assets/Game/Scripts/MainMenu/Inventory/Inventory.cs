@@ -165,7 +165,7 @@ public class Inventory
     {
         get
         {
-            return mPower;
+            return HP + Attack;
         }
         set
         {

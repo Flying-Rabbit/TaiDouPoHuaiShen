@@ -11,5 +11,9 @@ public class MenuBar : MonoBehaviour {
     public Button battleBtn;
     public Button systemBtn;
     public Button questBtn;
-        
+
+    private void Awake()
+    {
+        bagBtn.onClick.AddListener(() => KnapsackManager.Instance.OpenBag());
+    }
 }

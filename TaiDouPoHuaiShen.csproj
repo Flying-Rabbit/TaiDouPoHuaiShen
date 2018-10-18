@@ -84,12 +84,13 @@
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\Inventory.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryItem.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryItemUI.cs" />
-    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryUI.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\ItemInfo.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\Knapsack.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\KnapsackManager.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\KnapsackRole.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\KnapsackRoleEquipt.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Inventory\Prompt.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\MenuBar.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\PlayerBar.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\TopBar.cs" />

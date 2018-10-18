@@ -16,6 +16,8 @@ public enum PlayerInfoType
     Toughen,
     HP,
     Attack,
+    Equipt,
+    EquiptLevel,
     All
 }
 
@@ -279,8 +281,7 @@ public class PlayerInfo : MonoBehaviour {
     {       
         Init();       
     }   
-
-
+    
     private void Init()
     {
         mName = "骑猪的圣骑士";
@@ -301,32 +302,50 @@ public class PlayerInfo : MonoBehaviour {
         //mBracelet = 1001;
         //mRing = 1003;
         //mWing = 1002;
-        mHelmet = new InventoryItem();
-        mHelmet.GetInventroy = InventoryManager.Instance.inventoryDict[1005];
+
+
+        //mHelmet = new InventoryItem();
+        //mHelmet.GetInventroy = KnapsackManager.inventoryDict[1005];
 
         mCloth = new InventoryItem();
-        mCloth.GetInventroy = InventoryManager.Instance.inventoryDict[1004];
+        mCloth.GetInventroy = KnapsackManager.inventoryDict[1004];
 
         mWeapon = new InventoryItem();
-        mWeapon.GetInventroy = InventoryManager.Instance.inventoryDict[1006];
+        mWeapon.GetInventroy = KnapsackManager.inventoryDict[1006];
 
         mShoes = new InventoryItem();
-        mShoes.GetInventroy = InventoryManager.Instance.inventoryDict[1008];
+        mShoes.GetInventroy = KnapsackManager.inventoryDict[1008];
 
         mNecklace = new InventoryItem();
-        mNecklace.GetInventroy = InventoryManager.Instance.inventoryDict[1007];
+        mNecklace.GetInventroy = KnapsackManager.inventoryDict[1007];
 
-        mBracelet = new InventoryItem();
-        mBracelet.GetInventroy = InventoryManager.Instance.inventoryDict[1001];
+        //mBracelet = new InventoryItem();
+        //mBracelet.GetInventroy = KnapsackManager.inventoryDict[1001];
 
-        mRing = new InventoryItem();
-        mRing.GetInventroy = InventoryManager.Instance.inventoryDict[1003];
+        //mRing = new InventoryItem();
+        //mRing.GetInventroy = KnapsackManager.inventoryDict[1003];
 
-        mWing = new InventoryItem();
-        mWing.GetInventroy = InventoryManager.Instance.inventoryDict[1002];
+        //mWing = new InventoryItem();
+        //mWing.GetInventroy = KnapsackManager.inventoryDict[1002];
 
 
         OnPlayerInfoChanged(PlayerInfoType.All);
+    }
+
+    private void InitHPDamagePower()
+    {
+        mHP = mLevel * 100;
+        mAttack = mLevel * 50;
+        mPower = mHP + mAttack;
+
+        PutOnEquip(mHelmet, -1);
+        PutOnEquip(mCloth, -1);
+        PutOnEquip(mWeapon, -1);
+        PutOnEquip(mShoes, -1);
+        PutOnEquip(mNecklace, -1);
+        PutOnEquip(mBracelet, -1);
+        PutOnEquip(mRing, -1);
+        PutOnEquip(mWing, -1);
     }
 
     public void ChangeName(string newName)
@@ -335,46 +354,256 @@ public class PlayerInfo : MonoBehaviour {
         OnPlayerInfoChanged(PlayerInfoType.Name);
     }
 
-    void PutOnEquip(InventoryItem item)
+    public void PutOnEquip(InventoryItem item, int itemId)
     {       
         if (item == null)
         {
             return;
         }
 
+        item.IsDressed = true;
+        InventoryUI.Instance.ClearPrice();
+
+        if (itemId >= 0)
+        {
+            bool isSwitchEquipt = false;
+
+            switch (item.GetInventroy.EquipTYPE)
+            {
+                case EquipType.Helmet:
+                    if (Helmet != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Helmet;
+                        Helmet = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Helmet = item;                        
+                    }
+                    break;
+                case EquipType.Cloth:
+                    if (Cloth != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Cloth;
+                        Cloth = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Cloth = item;                        
+                    }
+                    break;
+                case EquipType.Weapon:
+                    if (Weapon != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Weapon;
+                        Weapon = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Weapon = item;                        
+                    }
+                    break;
+                case EquipType.Shoes:
+                    if (Shoes != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Shoes;
+                        Shoes = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Shoes = item;                       
+                    }
+                    break;
+                case EquipType.Necklace:
+                    if (Necklace != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Necklace;
+                        Necklace = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Necklace = item;                      
+                    }
+                    break;
+                case EquipType.Bracelet:
+                    if (Bracelet != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Bracelet;
+                        Bracelet = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Bracelet = item;                        
+                    }
+                    break;
+                case EquipType.Ring:
+                    if (Ring != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Ring;
+                        Ring = item;
+                        item = temp;                       
+                    }
+                    else
+                    {
+                        Ring = item;                        
+                    }
+                    break;
+                case EquipType.Wing:
+                    if (Wing != null)
+                    {
+                        isSwitchEquipt = true;
+                        InventoryItem temp = Wing;
+                        Wing = item;
+                        item = temp;                        
+                    }
+                    else
+                    {
+                        Wing = item;                       
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (isSwitchEquipt)
+            {
+                InventoryUI.Instance.itUIList[itemId].SetInventoryItem(item);
+            }
+            else
+            {
+                InventoryUI.Instance.itUIList[itemId].Clear();
+                InventoryUI.Instance.UpdateCount();
+                KnapsackManager.inventoryItemList.Remove(item);                
+            }
+
+            //print(InventoryManager.Instance.inventoryItemList.Count);
+        }   
+
         Inventory inventory = item.GetInventroy;
         
         mHP += inventory.HP;
         mAttack += inventory.Attack;
         mPower += inventory.Power;
+
+        OnPlayerInfoChanged(PlayerInfoType.All);
     }
 
-    void PutOffEquip(InventoryItem item)
+    public void PutOffEquip(InventoryItem item)
     {
         if (item == null)
         {
             return;
         }
+        item.IsDressed = false;
+        KnapsackManager.inventoryItemList.Add(item);
+        InventoryUI.Instance.UpdateCount();
+
+        switch (item.GetInventroy.EquipTYPE)
+        {
+            case EquipType.Helmet:
+                Helmet = null;
+                KnapsackRole.Instance.helmet.Clear();
+                break;
+            case EquipType.Cloth:
+                Cloth = null;
+                KnapsackRole.Instance.cloth.Clear();
+                break;
+            case EquipType.Weapon:
+                Weapon = null;
+                KnapsackRole.Instance.weapon.Clear();
+                break;
+            case EquipType.Shoes:
+                Shoes = null;
+                KnapsackRole.Instance.shoes.Clear();
+                break;
+            case EquipType.Necklace:
+                Necklace = null;
+                KnapsackRole.Instance.necklace.Clear();
+                break;
+            case EquipType.Bracelet:
+                Bracelet = null;
+                KnapsackRole.Instance.bracelet.Clear();
+                break;
+            case EquipType.Ring:
+                Ring = null;
+                KnapsackRole.Instance.ring.Clear();
+                break;
+            case EquipType.Wing:
+                Wing = null;
+                KnapsackRole.Instance.wing.Clear();
+                break;
+            default:
+                break;
+        }
+
+        bool findSlot = false;
+        int count = KnapsackManager.inventoryItemList.Count;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (InventoryUI.Instance.itUIList[i].isEmpty)
+            {
+                InventoryUI.Instance.itUIList[i].SetInventoryItem(item);
+                findSlot = true;
+                break;
+            }
+        }
+
+        if (findSlot == false)
+        {
+            InventoryUI.Instance.itUIList[count].SetInventoryItem(item);
+        }
+
         Inventory inventory = item.GetInventroy;
       
         this.mHP -= inventory.HP;
         this.mAttack -= inventory.Attack;
         this.mPower -= inventory.Power;
+        OnPlayerInfoChanged(PlayerInfoType.All);
     }
 
-    void InitHPDamagePower()
+    public bool UpgradeEquipt(InventoryItem item)
     {
-        mHP = mLevel * 100;
-        mAttack = mLevel * 50;
-        mPower = mHP + mAttack;
+        int needGolds = (item.Level + 1) * item.GetInventroy.Price;
 
-        PutOnEquip(mHelmet);
-        PutOnEquip(mCloth);
-        PutOnEquip(mWeapon);
-        PutOnEquip(mShoes);
-        PutOnEquip(mNecklace);
-        PutOnEquip(mBracelet);
-        PutOnEquip(mRing);
-        PutOnEquip(mWing);
+        if (Gold < needGolds)
+            return false;
+        else
+        {
+            Gold -= needGolds;
+            item.Level += 1;
+            item.GetInventroy.HP += 100 * item.Level;
+            item.GetInventroy.Attack += 10 * item.Level;
+            OnPlayerInfoChanged(PlayerInfoType.All);
+            return true;
+        }
     }
+
+    public void ChangeGold(int value)
+    {
+        Gold += value;
+        OnPlayerInfoChanged(PlayerInfoType.Gold);
+    }
+
+    public void ChangeEnergy(int value)
+    {
+        Energy += value;
+        Energy = Energy > 100 ? 100 : Energy;
+        OnPlayerInfoChanged(PlayerInfoType.Energy);
+    }
+
+
 }

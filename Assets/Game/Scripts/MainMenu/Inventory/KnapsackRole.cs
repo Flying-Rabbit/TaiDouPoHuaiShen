@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class KnapsackRole : MonoBehaviour {
+
+    public static KnapsackRole Instance;
 
     public Text playerName;
     public KnapsackRoleEquipt helmet;
@@ -23,6 +22,7 @@ public class KnapsackRole : MonoBehaviour {
 
     private void Awake()
     {
+        Instance = this;
         PlayerInfo.Instance.OnPlayerInfoChanged += this.OnPlayerInfoChanged;
     }
 
@@ -30,14 +30,21 @@ public class KnapsackRole : MonoBehaviour {
     {
         PlayerInfo.Instance.OnPlayerInfoChanged -= this.OnPlayerInfoChanged;
     }
-    private void OnPlayerInfoChanged(PlayerInfoType type)
+
+    private void Start()
     {
+        UpdateShow();
+    }
+
+    private void OnPlayerInfoChanged(PlayerInfoType type)
+    {     
         switch (type)
         {
             case PlayerInfoType.Name:             
             case PlayerInfoType.Exp:             
             case PlayerInfoType.HP:            
             case PlayerInfoType.Attack:              
+            case PlayerInfoType.Equipt:
             case PlayerInfoType.All:
                 UpdateShow();
                 break;
@@ -58,11 +65,23 @@ public class KnapsackRole : MonoBehaviour {
         ring.UpdateImgByInventoryItem(PlayerInfo.Instance.Ring);
         wing.UpdateImgByInventoryItem(PlayerInfo.Instance.Wing);
 
-        hp.text = PlayerInfo.Instance.HP.ToString();
-        attack.text = PlayerInfo.Instance.Attack.ToString();
+        hp.text = GetMaxHP().ToString();
+        attack.text = GetMaxAttack().ToString();
         float expNeed = GameController.GetRequiredExpByLevel(PlayerInfo.Instance.Level + 1) * 1.0f;
         exp.text = PlayerInfo.Instance.Exp + "/" + expNeed;
         expSlider.value = PlayerInfo.Instance.Exp * 1.0f / expNeed;
+    }
+
+    private int GetMaxHP()
+    {
+        PlayerInfo pifo = PlayerInfo.Instance;
+        return pifo.Level * 100 + helmet.HP + cloth.HP + weapon.HP + shoes.HP + necklace.HP + necklace.HP + wing.HP + ring.HP + bracelet.HP;
+    }
+
+    private int GetMaxAttack()
+    {
+        PlayerInfo pifo = PlayerInfo.Instance;
+        return pifo.Level * 50 + helmet.Attack + cloth.Attack + weapon.Attack + shoes.Attack + necklace.Attack + necklace.Attack + wing.Attack + ring.Attack + bracelet.Attack;
     }
 
 

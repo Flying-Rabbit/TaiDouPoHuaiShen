@@ -16,10 +16,15 @@ public class ItemInfo : MonoBehaviour {
     public Text itemType;
     public Text itemDesc;
 
-    public void UpdateShow(InventoryItem item)
+    private InventoryItem item;
+    private int itemID;
+
+    public void UpdateShow(InventoryItem item, int itemId)
     {
+        this.item = item;
+        this.itemID = itemId;
         itemIcon.overrideSprite = Resources.Load<Sprite>(item.GetInventroy.Icon);
-        itemName.text = item.GetInventroy.Name;        
+        itemName.text = item.GetInventroy.Name;         
         itemDesc.text = item.GetInventroy.Des;
         batchUseTxt.text = "批量使用(" + item.Count + ")";
         switch (item.GetInventroy.InventoryTYPE)
@@ -38,6 +43,32 @@ public class ItemInfo : MonoBehaviour {
     private void Awake()
     {
         closeBtn.onClick.AddListener(() => gameObject.SetActive(false));
+        useBtn.onClick.AddListener(OnUse);
+        batchUseBtn.onClick.AddListener(OnBatchUse);
+    }
 
+    private void OnUse()
+    {
+        if (item.Count <= 0)
+            return;
+
+        InventoryUI.Instance.UseItem(1, item, itemID);
+
+        if (item.Count == 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else if (item.Count > 0)
+        {
+            batchUseTxt.text = "批量使用(" + item.Count + ")";
+        }
+    }
+
+    private void OnBatchUse()
+    {
+        if (item.Count <= 0)
+            return;
+        InventoryUI.Instance.UseItem(item.Count, item, itemID);
+        gameObject.SetActive(false);
     }
 }
