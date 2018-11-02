@@ -15,5 +15,7 @@ public class MenuBar : MonoBehaviour {
     private void Awake()
     {
         bagBtn.onClick.AddListener(() => KnapsackManager.Instance.OpenBag());
+        questBtn.onClick.AddListener(() => TaskManager.Instance.ShowTaskPanel());
+        skillBtn.onClick.AddListener(() => SkillManager.Instance.ShowSkillPanel());
     }
 }

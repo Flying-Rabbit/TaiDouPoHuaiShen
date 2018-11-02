@@ -96,15 +96,29 @@
     <Compile Include="Assets\Game\Scripts\MainMenu\MainUI\TopBar.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\PlayerInfo.cs" />
     <Compile Include="Assets\Game\Scripts\MainMenu\PlayerStatus\PlayerStatusPanel.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Skill\Skill.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Skill\SkillManager.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Skill\SkillUI.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Task\Task.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Task\TaskManager.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Task\TaskPanel.cs" />
+    <Compile Include="Assets\Game\Scripts\MainMenu\Task\TaskUI.cs" />
     <Compile Include="Assets\Game\Scripts\Start\CharacterRotate.cs" />
     <Compile Include="Assets\Game\Scripts\Start\InitServerList.cs" />
     <Compile Include="Assets\Game\Scripts\Start\ResetSelectedServer.cs" />
     <Compile Include="Assets\Game\Scripts\Start\ServerProperty.cs" />
     <Compile Include="Assets\Game\Scripts\Start\StartMenuController.cs" />
+    <Compile Include="Assets\Game\Scripts\Village\FollowTarget.cs" />
+    <Compile Include="Assets\Game\Scripts\Village\NPCDialog.cs" />
+    <Compile Include="Assets\Game\Scripts\Village\NPCManager.cs" />
+    <Compile Include="Assets\Game\Scripts\Village\Player\PlayerAutoMove.cs" />
+    <Compile Include="Assets\Game\Scripts\Village\Player\PlayerMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Enemy\Masked Orc\Read Me.txt" />
     <None Include="Assets\Game\Scripts\MainMenu\Inventory\InventoryListInfo.txt" />
+    <None Include="Assets\Game\Scripts\MainMenu\Skill\SkillInfo.txt" />
+    <None Include="Assets\Game\Scripts\MainMenu\Task\TaskList.txt" />
     <None Include="Assets\Game\Textures\UI\005-number combo\number_font.fnt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

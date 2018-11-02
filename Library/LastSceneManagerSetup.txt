@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Game/Models/Village/taikr_01.unity
+- path: Assets/Game/Scenes/_02_main.unity
   isLoaded: 1
   isActive: 1

@@ -21,6 +21,12 @@ public enum PlayerInfoType
     All
 }
 
+public enum EPlayerType
+{
+    Warrior,
+    FemaleAssassin
+}
+
 public class PlayerInfo : MonoBehaviour {
 
     //姓名
@@ -55,6 +61,7 @@ public class PlayerInfo : MonoBehaviour {
     private InventoryItem mBracelet;
     private InventoryItem mRing;
     private InventoryItem mWing;
+    private EPlayerType playerType;
     #endregion
 
     #region Property
@@ -267,6 +274,19 @@ public class PlayerInfo : MonoBehaviour {
             mWing = value;
         }
     }
+
+    public EPlayerType PlayerType
+    {
+        get
+        {
+            return playerType;
+        }
+
+        set
+        {
+            playerType = value;
+        }
+    }
     #endregion
 
 
@@ -318,6 +338,8 @@ public class PlayerInfo : MonoBehaviour {
 
         mNecklace = new InventoryItem();
         mNecklace.GetInventroy = KnapsackManager.inventoryDict[1007];
+
+        playerType = EPlayerType.Warrior;
 
         //mBracelet = new InventoryItem();
         //mBracelet.GetInventroy = KnapsackManager.inventoryDict[1001];
